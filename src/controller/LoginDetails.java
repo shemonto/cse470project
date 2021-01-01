@@ -29,16 +29,21 @@ PreparedStatement pst=null;
         con= Connect.ConnectDB();
         Get_Data();
     }
-    private void Get_Data(){
+    public String Get_Data(){
         String sql="select user_name as 'User Name',password as 'Password' from users order by user_name";
-          try{
+         String add = ""; 
+        try{
          pst=con.prepareStatement(sql);
           rs= pst.executeQuery();
+          while(rs.next()){
+           add=rs.getString("Password");
+          }
          User_table.setModel(DbUtils.resultSetToTableModel(rs));
          }catch(Exception e){
             JOptionPane.showMessageDialog(null, e);
           
 }
+        return add;
     }
 
     /**

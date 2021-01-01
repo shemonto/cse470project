@@ -21,6 +21,7 @@ import net.proteanit.sql.DbUtils;
  * @author Agarwal
  */
 public class Patient_Admit_Room extends javax.swing.JFrame {
+    //String add = "";
     Connection con=null;
     ResultSet rs=null;
     PreparedStatement pst=null;
@@ -36,42 +37,61 @@ public class Patient_Admit_Room extends javax.swing.JFrame {
          Get_Data1();
          GetRecord();
     }
-private void fillcombo(){
+public String fillcombo(){
     
+    String add = "";
     try{
         con=Connect.ConnectDB();
         String sql= "select distinct RoomNo from Room order by RoomNo";
         pst=con.prepareStatement(sql);
         rs=pst.executeQuery();
         while(rs.next()){
-          String add=rs.getString("RoomNo");
+           add=rs.getString("RoomNo");
+         // System.out.println("checking add"+add);
           cmbRoomNo.addItem(add);
           }
        }catch(HeadlessException | SQLException ex){
            JOptionPane.showMessageDialog(this,ex); 
        }
+    return add;
 }
- private void GetRecord(){
+ public String GetRecord(){
      String sql="select DoctorID as 'Doctor ID', DoctorName as 'Doctor Name' from Doctor order by DoctorName";  
+     String add = "";
+     
      try{
         con=Connect.ConnectDB();
         pst=con.prepareStatement(sql);
         rs= pst.executeQuery();
+        while(rs.next()){
+           add=rs.getString("Doctor ID");
+         // System.out.println("checking add"+add);
+          //cmbRoomNo.addItem(add);
+          }
+        
         jTable2.setModel(DbUtils.resultSetToTableModel(rs));
      }catch(Exception e){
             JOptionPane.showMessageDialog(null, e);
      }
+     return add;
  }
-  private void Get_Data1(){
+ 
+  
+  public String Get_Data1(){
         String sql="select PatientID as 'Patient ID', PatientName as 'Patient Name',Gen as 'Gender',BG as 'Blood Group' from Patientregistration order by PatientName";
+        String add = "";
         try{
             con=Connect.ConnectDB();
             pst=con.prepareStatement(sql);
             rs= pst.executeQuery();
+            while(rs.next()){
+           add=rs.getString("Gender");
+            }
             jTable1.setModel(DbUtils.resultSetToTableModel(rs));
          }catch(Exception e){
             JOptionPane.showMessageDialog(null, e);
          }
+        return add;
     }
   private void Reset(){
     txtDoctorID.setText("");

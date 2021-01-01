@@ -31,16 +31,21 @@ public class UserRecord extends javax.swing.JFrame {
 
     }
 
-    private void Get_Data() {
+    public String Get_Data() {
         String sql = "select name as 'Name', user_name as 'User Name',password,contact_no as 'Contact No',email_id as 'Email ID' from registration";
+        String adon = "";
         try {
             pst = con.prepareStatement(sql);
             rs = pst.executeQuery();
+            while(rs.next()){
+           adon=rs.getString("Contact No");
+            }
             jTable1.setModel(DbUtils.resultSetToTableModel(rs));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
 
         }
+        return adon;
     }
 
     /**

@@ -35,16 +35,21 @@ PreparedStatement pst=null;
         Get_Data();
         setLocationRelativeTo(null);
     }
- private void Get_Data(){
-         try{
+ public String Get_Data(){
+     String msg = "";    
+     try{
          String sql="Select PatientRegistration.PatientID as 'Patient ID',PatientRegistration.PatientName as 'Patient Name',PatientRegistration.Gen as 'Gender',PatientRegistration.BG as 'Blood Group',Disease,AdmitDate as 'Admit Date',Room.RoomNo as 'Room No',RoomCharges as 'Room Cahrges',Doctor.DoctorID as 'Doctor ID',DoctorName as 'Doctor Name',DischargeDate as 'Discharge Date',DP_Remarks as 'Remarks' from Room,Doctor,PatientRegistration,AdmitPatient_Room,DischargePatient_Room where Room.RoomNo=AdmitPatient_Room.RoomNo and Doctor.DoctorID=AdmitPatient_Room.DoctorID and PatientRegistration.PatientID=AdmitPatient_Room.PatientID  and AdmitPatient_Room.PatientID= DischargePatient_Room.admitID order by Dischargedate";
          pst=con.prepareStatement(sql);
           rs= pst.executeQuery();
+          while(rs.next()){
+           msg=rs.getString("Room Cahrges");
+          }
          jTable1.setModel(DbUtils.resultSetToTableModel(rs));
          }catch(Exception e){
             JOptionPane.showMessageDialog(null, e);
           
 }
+     return msg;
     }
     /**
      * Creates new form Patient_Discharge_roomRec2

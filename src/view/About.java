@@ -17,7 +17,9 @@ public class About extends javax.swing.JFrame {
     public About() {
         initComponents();
     }
-
+public String seeing(){
+    return "it is viewed";
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

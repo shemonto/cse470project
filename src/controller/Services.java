@@ -38,18 +38,24 @@ PreparedStatement pst=null;
          txtServiceID.setVisible(false);
          Get_Data1();
     }
- private void Get_Data1(){
-      try{
+ public String Get_Data1(){
+     String tnt = "" ;
+     try{
         con=Connect.ConnectDB();
         String sql="select PatientID as 'Patient ID', PatientName as 'Patient Name' from Patientregistration order by PatientName";
          
          pst=con.prepareStatement(sql);
          rs= pst.executeQuery();
+         while(rs.next()){
+           tnt=rs.getString("Patient Name");
+         }
+         //System.out.println("checking rs"+ rs);
          tblPatient.setModel(DbUtils.resultSetToTableModel(rs));
          }catch(Exception e){
             JOptionPane.showMessageDialog(null, e);
           
 }
+     return tnt;
     }
  private void Reset()
 {   

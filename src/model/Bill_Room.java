@@ -37,16 +37,21 @@ public class Bill_Room extends javax.swing.JFrame {
     } /**
      * Creates new form Bill_Room
      */
-    private void Get_Data1(){
-      try{
+    public String Get_Data1(){
+      String bill = "";
+        try{
         con=Connect.ConnectDB();
        String sql="select PatientRegistration.PatientID as 'Patient ID', PatientName as 'Patient Name',sum(serviceCharges) as 'Service Charges' from Services,PatientRegistration where Services.PatientID=PatientRegistration.PatientID group by PatientRegistration.PatientID,PatientName order by PatientName";
          pst=con.prepareStatement(sql);
          rs= pst.executeQuery();
+         while(rs.next()){
+           bill = rs.getString("Service Charges");
+         }
          jTable1.setModel(DbUtils.resultSetToTableModel(rs));
          }catch(Exception e){
             JOptionPane.showMessageDialog(null, e);
           }
+        return bill;
     }
     private void Reset(){
         txtDoctorID.setText("");

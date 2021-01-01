@@ -41,7 +41,9 @@ public class NewUser extends javax.swing.JFrame {
     Delete.setEnabled(false);
     Update.setEnabled(false);
  }
-
+public String user(){
+    return "welcome";
+}
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

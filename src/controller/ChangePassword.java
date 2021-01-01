@@ -31,6 +31,10 @@ PreparedStatement pst=null;
     public ChangePassword() {
         initComponents();
     }
+    
+    public String pass(){
+        return "changed";
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

@@ -30,16 +30,21 @@ PreparedStatement pst=null;
         con= Connect.ConnectDB();
         Get_Data();
     }
-private void Get_Data(){
+public String Get_Data(){
       String sql="select DoctorID as 'Doctor ID', DoctorName as 'Doctor Name',FatherName as 'Father Name',Address,ContacNo as 'Contact No',Email as 'Email ID',Qualifications,Gender,BloodGroup as 'Blood Group',DateOfJoining as 'Joining Date' from Doctor order by DoctorName";        
+       String add = "";
       try{
          pst=con.prepareStatement(sql);
           rs= pst.executeQuery();
+          while(rs.next()){
+           add=rs.getString("Father Name");
+          }
          jTable1.setModel(DbUtils.resultSetToTableModel(rs));
          }catch(Exception e){
             JOptionPane.showMessageDialog(null, e);
           
         }
+      return add;
     }
     /**
      * This method is called from within the constructor to initialize the form.

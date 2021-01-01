@@ -31,16 +31,21 @@ public class ServicesRec extends javax.swing.JFrame {
         Get_Data();
         //setLocationRelativeTo(null);
     }
- private void Get_Data(){
+ public String Get_Data(){
        String sql="select ServiceID as 'Service ID', ServiceName as 'Service Name',ServiceDate as 'Service Date',PatientRegistration.PatientID as 'Patient ID',PatientName as 'Patient Name',ServiceCharges as 'Service Charges' from PatientRegistration,Services where Services.PatientID=PatientRegistration.PatientID order by PatientName";
+       String hel = "";
        try{         
             pst=con.prepareStatement(sql);
             rs= pst.executeQuery();
+            while(rs.next()){
+           hel=rs.getString("Service Name");
+            }
             txtTable.setModel(DbUtils.resultSetToTableModel(rs));
          }catch(Exception e){
             JOptionPane.showMessageDialog(null, e);
             e.printStackTrace();
           }
+       return hel;
  }      
      /**
      * This method is called from within the constructor to initialize the form.
